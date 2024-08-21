@@ -1,7 +1,6 @@
 # capable in: image interpretation, speech transcription, text summarisation
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
 
 # Load the tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("model_name_or_path")
