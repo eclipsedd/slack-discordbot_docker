@@ -1,11 +1,26 @@
-
 services:
-  app:
+  slackbot:
     build:
       context: .
+      dockerfile: Dockerfile.slack
     ports:
       - "3000:3000"
+    env_file:
+      - app/.env
+    networks:
+      - app-network
+
+  discordbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.discord
+    ports:
       - "5000:5000"
     env_file:
-      - .env
-    command: sh -c "python app/slackbot.py & python app/bot.py"
+      - app/.env
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

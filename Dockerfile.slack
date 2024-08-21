@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+
+# Set working dir
+WORKDIR /app
+
+# Install dependencies
+COPY app/requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy rest of app
+COPY app/slackbot.py /app/
+COPY app/slackbot_googleai.py /app/
+COPY app/slack_backup.py /app/
+COPY app/sample.env /app/
+COPY app/Readme.md /app/
+
+# Expose necessary port
+EXPOSE 3000
+
+# Run the Slack bot
+CMD ["python", "slackbot.py"]

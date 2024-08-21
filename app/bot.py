@@ -39,17 +39,23 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if message.content.startswith('raptor'):
+    if message.content.startswith("raptor"):
         response = generate_response(message.content)
         await message.channel.send(response)
 
     requests.post(
-        "http://localhost:3000/discord_message", json={"content": str(message.content) ,"user": str(message.author),"channel":str(message.channel)}
+        "http://slackbot:3000/discord_message",
+        json={
+            "content": str(message.content),
+            "user": str(message.author),
+            "channel": str(message.channel),
+        },
     )
 
 
 async def send_message_to_discord(content, channel, user):
-    await channel.send(f'{user} : {content}')
+    await channel.send(f"{user} : {content}")
+
 
 app2 = Flask(__name__)
 

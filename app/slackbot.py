@@ -88,14 +88,14 @@ def process_message(text, channel_id):
 def post(timestamp, channel_id, user_id, text, username, channel_name):
     try:
         response = requests.post(
-            "http://localhost:5000/slack_message",
+            "http://discordbot:5000/slack_message",
             json={"content": text, "user": username, "channel": channel_name},
         )
         if response.status_code == 200:
             print("Message forwarded to local server")
         else:
             print(f"Failed to forward the message: {response.status_code} - {response.text}")
-        
+
         process_message(text=text , channel_id=channel_id)
     except requests.exceptions.RequestException as e:
         print(f"Request exception: {e}")
